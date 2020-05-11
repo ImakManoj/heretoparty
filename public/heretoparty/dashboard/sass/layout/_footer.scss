@@ -1,0 +1,184 @@
+footer {
+    background: $color-footer;
+    padding: em(50) 0 0;
+    position: relative;
+    @include bg-cover;
+
+    &:before {
+        content: "";
+        @include cover-all;
+        background: rgba(#383b48, 0.93);
+        z-index: 1;
+    }
+
+    .container {
+        position: relative;
+        z-index: 5;
+    }
+
+    h5,
+    p,
+    ul li,
+    a {
+        color: #fff;
+        font-weight: 300;
+    }
+
+    p,
+    ul li {
+        font-size: 16px;
+
+        @include breakpoint(desktop) {
+            font-size: 14px;
+        }
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+
+        li {
+            display: inline-block;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+    }
+
+    .footer-about {
+        padding-right: 40px;
+
+        @include breakpoint(desktop) {
+            padding-right: 20px;
+        }
+
+        figure {
+            margin-bottom: 25px;
+
+            @include breakpoint(desktop) {
+                img{
+                    max-width: 80px;
+                }
+            }
+        }
+
+        p {
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .footer-quick-links {
+        ul {
+            column-count: 2;
+
+            a {
+                color: #fff;
+
+                &:hover,
+                &:focus {
+                    color: $color-secondary;
+                }
+            }
+        }
+    }
+
+    .footer-contact {
+        padding-left: 40px;
+
+        @include breakpoint(desktop) {
+            padding-left: 20px;
+        }
+
+        ul {
+            li {
+                position: relative;
+                padding-left: 30px;
+
+                .fa {
+                    position: absolute;
+                    top: 4px;
+                    left: 0;
+                    color: $color-secondary;
+
+                    &.fa-phone {
+                        font-size: 18px;
+                    }
+
+                    &.fa-map-marker {
+                        font-size: 22px;
+                        left: 1px;
+                        top: 1px;
+                    }
+                }
+
+                a {
+                    color: #fff;
+
+                    &:hover,
+                    &:focus {
+                        color: $color-secondary;
+                    }
+                }
+            }
+        }
+    }
+
+    .footer-follow-links {
+        ul {
+            li {
+                width: auto;
+                margin: 0 10px 20px 0;
+
+                @include breakpoint(desktop) {
+                    margin: 0 5px 10px 0;
+                }
+
+                a {
+                    display: block;
+                    width: 48px;
+                    height: 48px;
+                    border-radius: 100%;
+                    line-height: 48px;
+                    font-size: 18px;
+                    color: #fff;
+                    background: $color-secondary;
+                    text-align: center;
+
+                    @include breakpoint(desktop) {
+                        width: 36px;
+                        height: 36px;
+                        line-height: 36px;
+                        font-size: 15px;
+                    }
+
+
+                    &:hover,
+                    &:focus {
+                        color: $color-secondary;
+                        background: rgba($color-secondary, 0.20);
+                    }
+
+                }
+            }
+        }
+    }
+
+
+    .copyright {
+        text-align: center;
+        background: $color-footer;
+        padding: 20px 0;
+        margin-top: em(50);
+        position: relative;
+        z-index: 5;
+
+        p {
+            margin: 0;
+            color: #fff;
+            font-size: 14px;
+            letter-spacing: 0.04em;
+        }
+    }
+
+}

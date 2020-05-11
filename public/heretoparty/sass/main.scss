@@ -1,0 +1,38 @@
+/*!
+CSS Document
+Project Name: Heretoparty Dashboard
+Project Description:
+Written By: iMark Infotech - Harwinder Singh
+Created On: 18 March 2020
+*/
+
+/*! Vendors and external stylesheets */
+@import "vendors/bootstrap";
+@import "vendors/font-awesome";
+@import "vendors/animate";
+@import "vendors/aos";
+@import "vendors/slick";
+@import "vendors/bootstrapSelect";
+
+/*! Sass utilities */
+@import "helpers/variables";
+@import "helpers/functions";
+@import "helpers/mixins";
+
+/*! Base stuff */
+@import "base/reset";
+@import "base/typography";
+
+/*! Layout related stylesheets */
+@import "layout/sidebar";
+@import "layout/forms";
+@import "layout/style";
+
+/*! Components and modules */
+@import "components/buttons";
+
+/*! Page-specific stylesheets */
+@import "pages/home";
+@import "pages/contact";
+
+
