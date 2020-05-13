@@ -10,17 +10,30 @@
                         <div class="d-title d-flex align-items-center justify-content-between">
                             <h3>Guest</h3>
                             <div class="search-wrap search-guest"> 
-                            <form class="d-flex align-items-center">
+
+
+                              <form>
+
+                              <div class="form-group btns_rt">
+
+                              </div>
+
+
+                                  <a href="javascipt:void(0);" class="btn btn-default btn-capitalize" data-toggle="modal" data-target="#add-guest">Add Guest</a>
+                              </form>
+
+
+                           <!--  <form class="d-flex align-items-center">
                                     <div class="serch-field col relative">
                                         <input type="text" class="form-control" placeholder="Search" >
                                         <button class="search-btn" type="button"><i class="fa fa-search"></i></button>
                                     </div>
-                                        <a href="javascipt:void(0);" class="btn btn-default btn-capitalize" data-toggle="modal" data-target="#add-guest">Add Guest</a>
-                            </form> 
+                                        
+                            </form>  -->
                             </div>
                        </div>
                         <div class="table-wrap "> 
-                            <table class="table table-bordered table-striped">
+                            <table class="table table-bordered table-striped" id="example">
                                  <thead class="primary-theme"> 
                                      <tr>
                                         <th>Sr. No.</th> 
@@ -133,6 +146,30 @@
     }
 </script>
 
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 
+<script type="text/javascript">
+    var table = $('#example').DataTable();
+ 
+        function explode(){
+        $("#example_filter").detach().appendTo('.btns_rt');
+    }
+
+    
+    $(document).ready(function() {
+        setTimeout(explode, 500);
+    table
+        .columns(1)
+        .search( this.value )
+        .draw();
+} );
+
+        $('div.dataTables_filter input').attr('placeholder', 'Search...','class'); 
+        $("#example").wrap("<div class='responsive-table'></div>");
+        $('div.dataTables_filter input').addClass('form-control');
+        
+</script>
 
 @endsection

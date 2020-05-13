@@ -1,7 +1,7 @@
-@extends('VendorPanel.Userslayouts.apps')
+@extends('Admin.Userslayouts.apps')
 @section('title','Message')
 @section('content')
-
+ 
 
  <div class="dashboard-content-wrap">
                 <div class="dashboard-content-inner">

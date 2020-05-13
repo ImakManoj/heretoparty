@@ -29,9 +29,9 @@ $userProfile=VenderController::UserProfile();
 
                         <ul class="dropdown-menu">
 
-                            <li><a class="dropdown-item" href="{{route('vendorProfile')}}">Profile</a></li>
+                            <li><a class="dropdown-item" href="{{route('adminProfile')}}">Profile</a></li>
 
-                            <li><a class="dropdown-item" href="{{route('changePassword')}}">Change Password</a></li>
+                            <!-- <li><a class="dropdown-item" href="#">Link 2</a></li> -->
 
                             <li>
 
@@ -51,7 +51,7 @@ $userProfile=VenderController::UserProfile();
 
                     </li>
 
-                    <li class="dropdown">
+                <!--     <li class="dropdown">
 
                         <button type="button" class="dropdown-toggle" data-toggle="dropdown">
 
@@ -86,7 +86,7 @@ $userProfile=VenderController::UserProfile();
 
                         </ul>
 
-                    </li>
+                    </li> -->
 
                 </ul>
 

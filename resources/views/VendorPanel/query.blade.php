@@ -16,6 +16,15 @@ use App\Http\Controllers\Vender\VenderController;
                         <div class="d-title d-flex align-items-center justify-content-between">
                             <h3>My Quotes</h3>
                             <div class="search-wrap">
+
+                                <form>
+
+                                  <div class="form-group btns_rt">
+
+                                  </div>
+
+                                </form>
+
                             <form>
                                 <input type="text" class="form-control" placeholder="Search" >
                                  <button class="search-btn" type="button"><i class="fa fa-search"></i></button>
@@ -23,7 +32,7 @@ use App\Http\Controllers\Vender\VenderController;
                             </div>
                        </div>
                        <div class="table-wrap"> 
-                         <table class="table table-bordered tr__sub table-striped quote-table ">
+                         <table class="table table-bordered tr__sub table-striped quote-table" id="example">
                               <thead class="primary-theme"> 
                                   <tr>
                                   <th>Event</th> 
@@ -38,6 +47,7 @@ use App\Http\Controllers\Vender\VenderController;
                                 @foreach($response as $row)
                                   <tr>
                                       <td colspan="6" style="padding: 0; border: 0;">
+
                                           <table cellpading="0" cellspacing="0" style="border: 0; width: 100%; border: 0;">
                                                 <tr class="white_bg">
                                                     <td colspan="6">{{$row->first_name}} {{$row->last_name}}</td>
@@ -56,14 +66,15 @@ use App\Http\Controllers\Vender\VenderController;
                           <td>{{$ft->description}}</td>
                           <td class="green-text">Accepted</td>
                           <td>
-                          <a href="#" class="btn green-btn table-btn" onclick="submitMyQutotes()">Submit</a>
-                          <a href="#" class="btn yellow-btn table-btn" onclick="resubmitMyQutotes()">Resubmit</a>
-                          <a href="#" class="btn red-btn table-btn" onclick="withdrawMyQutotes()">Withdraw</a>
+                          <a href="#" class="btn green-btn table-btn" onclick="submitMyQutotes({{$row->uid}})">Submit</a>
+                          <a href="#" class="btn yellow-btn table-btn" onclick="resubmitMyQutotes({{$row->uid}})">Resubmit</a>
+                          <a href="#" class="btn red-btn table-btn" onclick="withdrawMyQutotes({{$row->uid}})">Withdraw</a>
                           </td>
                       </tr>
                   @endforeach
                                              </table>
                                       </td>
+                                      
                                   </tr>
                                   @endforeach                               
                               </tbody>
@@ -124,41 +135,84 @@ use App\Http\Controllers\Vender\VenderController;
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.js"></script>
 
 <script type="text/javascript">
-  function submitMyQutotes(){
-        $.toast({
-          heading: 'My Quote',
-          text: 'My Quote Send Successfuly !',
-          showHideTransition: 'fade',
-          icon: 'success'
-      });
+  function submitMyQutotes(id){
+      const parmt={
+        _token:"{{csrf_token()}}",
+        id:id
+      }
+      $.post('{{route("submitMyQutotes")}}',parmt).then(function(response){
+
+          $.toast({
+              heading: 'My Quote',
+              text: 'My Quote Send Successfuly !',
+              showHideTransition: 'fade',
+              icon: 'success'
+          });
+
+      })
+       
 }
 </script>
 
 
 <script type="text/javascript">
-  function resubmitMyQutotes(){
+  function resubmitMyQutotes(id){
+    const parmt={
+        _token:"{{csrf_token()}}",
+        id:id
+      }
+  $.post('{{route("resubmitMyQutotes")}}',parmt).then(function(response){
         $.toast({
           heading: 'My Quote',
           text: 'My Quote Resend Successfuly !',
           showHideTransition: 'fade',
           icon: 'warning'
       });
+    });
 }
 </script>
 
 <script type="text/javascript">
-  function withdrawMyQutotes(){
+  function withdrawMyQutotes(id){
+    const parmt={
+        _token:"{{csrf_token()}}",
+        id:id
+      }
+   $.post('{{route("withdrawMyQutotes")}}',parmt).then(function(response){
         $.toast({
           heading: 'My Quote',
           text: 'My Quote Withdraw!',
           showHideTransition: 'fade',
           icon: 'denger'
       });
+    });
 }
 </script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 
+<script type="text/javascript">
+    var table = $('#example').DataTable();
+ 
+        function explode(){
+        $("#example_filter").detach().appendTo('.btns_rt');
+    }
 
+    
+    $(document).ready(function() {
+        setTimeout(explode, 500);
+    table
+        .columns(1)
+        .search( this.value )
+        .draw();
+} );
 
+        $('div.dataTables_filter input').attr('placeholder', 'Search...','class'); 
+        $("#example").wrap("<div class='responsive-table'></div>");
+        $('div.dataTables_filter input').addClass('form-control');
+        
+</script>
 @endsection
 
     

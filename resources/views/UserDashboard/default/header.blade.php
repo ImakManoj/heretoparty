@@ -32,7 +32,7 @@ $userProfile=VenderController::UserProfile();
 
                              <li><a class="dropdown-item" href="{{route('userProfile')}}">Profile</a></li>
 
-                            <li><a class="dropdown-item" href="#">Link 2</a></li>
+                            <li><a class="dropdown-item" href="{{route('userChangePassword')}}">Change Password</a></li>
 
                                 <li>
 

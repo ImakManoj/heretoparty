@@ -9,11 +9,10 @@ use Auth;
 use Session;
 use Hash;
 use Mail;
-use User;
+use App\User;
 use App\Banners;
 use App\Iwanttoplans;
 use App\Vendorbooks;
-use App\countryModel;
 use App\Howitworks;
 use App\Abouts;
 use App\Todolists;
@@ -25,17 +24,19 @@ use App\categoryModel as Category;
 use App\ReuseModel;
 use App\Tag;
 use App\subCategoryModel as SubCategory;
+use App\countryModel as Country;
+use App\cityModel as City;
 
 class Admins extends Controller
 {
-    /**
+    /** 
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('SuperAdmin.index');
+        return view('Admin.index');
     }
 
     /**
@@ -113,12 +114,18 @@ class Admins extends Controller
     }
 
     public function dashboard (Request $request){
-        return view('SuperAdmin.dashboard');
+        return view('Admin.index');
     }
 
      public function banner(Request $request){
         $response=Banners::get();
-        return view('SuperAdmin.HomePage',compact('response'));
+        return view('Admin.HomePage',compact('response'));
+    }
+  public function adminProfile(Request $request){
+        $response=DB::table('users')->select('users.*','countries.*','cities.*')->join('countries','countries.id','users.country_id')->join('cities','cities.id','users.city_id')->where('users.id',Auth::User()->id)->where('users.status',1)->first();
+            $Country=Country::get();
+            $city=City::get();
+        return view('Admin.adminProfile',compact('response','Country','city'));
     }
 
     public function editBanner(Request $request){
@@ -153,25 +160,25 @@ class Admins extends Controller
 
      public function iWantToPlan(Request $request){
         $response=Iwanttoplans::get();
-        return view('SuperAdmin.iwantoplan',compact('response'));
+        return view('Admin.iwantoplan',compact('response'));
     }
 
      public function vendorsRecentlyBooked(Request $request){
         $response=DB::table('Vendorbooks')->select('Vendorbooks.*','countries.*','Vendorbooks.id as vid')->join('countries','countries.id','Vendorbooks.vendorbook_country')->where('Vendorbooks.id','!=',1)->get();
         $heading=Vendorbooks::where('id',1)->first();
-        $country=countryModel::get();
-        return view('SuperAdmin.venderBooked',compact('response','heading','country'));
+        $country=Country::get();
+        return view('Admin.venderBooked',compact('response','heading','country'));
     }
 
      public function howItWorks (Request $request){
         $response=Howitworks::where('id','!=',1)->get();
         $heading=Howitworks::where('id',1)->first();
-        return view('SuperAdmin.howItWorks',compact('response','heading'));
+        return view('Admin.howItWorks',compact('response','heading'));
     }
 
      public function aboutUs (Request $request){
         $response=Abouts::get();
-        return view('SuperAdmin.aboutus',compact('response'));
+        return view('Admin.aboutus',compact('response'));
     }
 
     public function saveBanner(Request $request){
@@ -284,7 +291,7 @@ class Admins extends Controller
 
     public function degination(Request $request){
         $response=Degination::where('status',1)->get();
-        return view('SuperAdmin.degination',compact('response'));
+        return view('Admin.degination',compact('response'));
     }
 
     public function savedegination(Request $request){
@@ -300,7 +307,7 @@ class Admins extends Controller
     public function ourteam(Request $request){
         $response=Degination::where('status',1)->get();
         $outTeam=ourTeam::with('RelationDetination')->get();
-        return view('SuperAdmin.ourteam',compact('response','outTeam'));
+        return view('Admin.ourteam',compact('response','outTeam'));
     }
 
     public function savedOurTeam(Request $request){
@@ -318,7 +325,7 @@ class Admins extends Controller
 
 public function careers(Request $request){
      $response=Career::get();
-    return view('SuperAdmin.careers',compact('response'));
+    return view('Admin.careers',compact('response'));
 }
 
     public function savedCareers(Request $request){
@@ -337,7 +344,7 @@ public function careers(Request $request){
 
     public function adminCategory(Request $request){
       $records =Category::where('categories_status','1')->get();
-      return view('SuperAdmin.Category',compact('records'));
+      return view('Admin.Category',compact('records'));
     }
 
     public function addcategories(Request $request){
@@ -378,14 +385,14 @@ public function careers(Request $request){
 
     public function tags(Request $request){
       $records=Tag::get();
-      return view('SuperAdmin.tags',compact('records'));
+      return view('Admin.tags',compact('records'));
     }
 
 
 
     public function adminService(Request $request){
       $categories=Category::where('categories_status',1)->get();
-      return view('SuperAdmin.vendorServices',compact('categories'));
+      return view('Admin.vendorServices',compact('categories'));
     }
 
 
@@ -405,6 +412,22 @@ public function careers(Request $request){
     }
 
 
+public function adminUpdateProfile(Request $request){
+
+    $array=array(
+            'first_name'=>$request->first_name,
+            'last_name'=>$request->last_name,
+            'mobile'=>$request->mobile,
+            'country_id'=>$request->country_name,
+            'city_id'=>$request->city_name,
+            'images'=>ReuseModel::UploadImages('profiles',$request->imageUpload)
+        );
+   
+    User::where('id',Auth::User()->id)->update($array);
+
+    return redirect()->back();
+
+}
 
 /* End  Controller */
 

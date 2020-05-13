@@ -10,6 +10,8 @@ use App\cityModel;
 use App\AuthModel;
 use DB;
 use Auth;
+use Mail;
+use Hash;
 use App\User; 
 use App\categoryModel as Categroy;
 use App\cityModel as City;
@@ -18,6 +20,11 @@ use App\Tag;
 use App\Serviceimage;
 use App\Service;
 use App\subCategoryModel as SubCategory;
+use Illuminate\Support\Facades\Crypt;
+use Session;
+
+
+
 class pageController extends Controller
 {
     /**
@@ -259,6 +266,77 @@ public function getCities(Request $request){
             return $array;
     
 }
+
+public function forgotPassword(Request $request){
+    if($records=User::where('email',$request->forgotEmail)->count()<1){
+    Session::flash('error', 'User not Exists!');
+    return redirect()->back();
+  }
+  $records=User::where('email',$request->forgotEmail)->first();
+  if($records->facebook_id!=''){
+    Session::flash('error', 'You used a Social Login (Google or Facebook), you must change your password there!');
+    return redirect()->back();
+  }elseif($records->google_id!=''){
+    Session::flash('error', 'You used a Social Login (Google or Facebook), you must change your password there!');
+    return redirect()->back();
+  }else{
+    $user_token=md5(rand());
+    $token['remember_token']=$user_token;
+    DB::table('users')->where('email',$request->forgotEmail)->update($token);
+    $UserName=DB::table('users')->where('email',$request->forgotEmail)->first();
+    $toemail = $request->forgotEmail;
+    $appname=\Config::get('app.name');
+    $secidtoview = array('id' => $user_token,'Email'=>Crypt::encryptString($toemail),'name'=>$UserName->first_name,'appname'=>$appname,'token'=>$user_token);
+    Mail::send('Email.forgot',$secidtoview,function($message) use ($toemail,$appname) {
+      $message->to($toemail)->subject('Forgot Password')->from('hello@zennflo.com',$appname);
+    });
+    Session::flash('message', 'Please Check your email id !');
+    return redirect()->back();
+  }
+}
+
+
+public function reset(Request $request){
+     $email = $request->segment(2);
+ $token = $request->segment(3);
+    return view('website.forgot',compact('email','token'));
+}
+
+public function resetYourPassword(Request $request){
+  if($request->password!=$request->cpassword){
+    Session::flash('password', 'Password and Confirm Password does not match!');
+    return redirect('/');
+  }else{
+   $email = Crypt::decryptString($request->email);
+   $token=$request->token;
+   if(User::where('email',$email)->where('remember_token',$token)->count()<1){
+    Session::flash('password', 'Link Expired !');
+    //  echo 1;
+    return redirect('/');
+  }else{
+    $input['remember_token']=$request->_token;
+    $input['password']=Hash::make($request->password);
+    DB::table('users')->where('email',$email)->where('remember_token',$token)->update($input);
+    Session::flash('successpassword', 'Password changed Successfully !');
+    return redirect('/');
+  }
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     /* End Controller*/

@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 /*Route::get('/', function () { 
     return view('welcome');
 });*/ 
- 
+  
 
 Route::get('/','Pages\pageController@index')->name('index');	
 Route::get('about','Pages\pageController@about')->name('about');	
@@ -25,10 +25,13 @@ Route::get('contact','Pages\pageController@contact')->name('contact');
 Route::get('userlogin','Pages\pageController@userLogin')->name('userlogin');	
 Route::get('signup','Pages\pageController@signup')->name('signup');	
 Route::get('forgot','Pages\pageController@forgot')->name('forgot');	
+Route::post('forgotPassword','Pages\pageController@forgotPassword')->name('forgotPassword');	
 Route::get('termCondition','Pages\pageController@termCondition')->name('termCondition');	
 Route::post('getCities','Pages\pageController@getCities')->name('getCities');	
+Route::post('resetYourPassword','Pages\pageController@resetYourPassword')->name('resetYourPassword');	
 Route::get('vendorDetails/{id?}','Pages\pageController@vendorDetails')->name('vendorDetails');	
 Route::match(['GET','POST'],'searchEvents','Pages\pageController@searchEvents')->name('searchEvents');	
+Route::get('reset/{id?}/{id1?}', 'Pages\pageController@reset')->name('reset');
 
 
 Auth::routes();
@@ -56,8 +59,18 @@ Route::post('saveBrochure','Vender\VenderController@saveBrochure')->name('saveBr
 Route::post('getbouchers','Vender\VenderController@getbouchers')->name('getbouchers');
 Route::get('notification','Vender\VenderController@notification')->name('notification');
 Route::get('messages','Vender\VenderController@messages')->name('messages');
+//Route::get('sendMessages','Vender\VenderController@sendMessages')->name('sendMessages');
+Route::post('SendMessagetoUser','Vender\VenderController@SendMessagetoUser')->name('SendMessagetoUser');
+Route::post('getallMessages','Vender\VenderController@getallMessages')->name('getallMessages');
+Route::post('submitMyQutotes','Vender\VenderController@submitMyQutotes')->name('submitMyQutotes');
+Route::post('resubmitMyQutotes','Vender\VenderController@resubmitMyQutotes')->name('resubmitMyQutotes');
+Route::post('withdrawMyQutotes','Vender\VenderController@withdrawMyQutotes')->name('withdrawMyQutotes');
+Route::get('changePassword','Vender\VenderController@changePassword')->name('changePassword');
+Route::post('VendorChangePassword','Vender\VenderController@VendorChangePassword')->name('VendorChangePassword');
 
 });
+
+
 Route::get('CreateQuote/{id?}','Pages\pageController@CreateQuote')->name('CreateQuote');
 
 
@@ -90,20 +103,24 @@ Route::post('Deleteitem','Users\UsersController@Deleteitem')->name('Deleteitem')
 Route::post('submitGuest','Users\UsersController@submitGuest')->name('submitGuest');
 Route::post('updateGuestLIst','Users\UsersController@updateGuestLIst')->name('updateGuestLIst');
 Route::post('deletegueslist','Users\UsersController@deletegueslist')->name('deletegueslist');
+Route::post('SendMessagetoVendors','Users\UsersController@SendMessagetoVendors')->name('SendMessagetoVendors');
+Route::post('getallVendorMessages','Users\UsersController@getallVendorMessages')->name('getallVendorMessages');
 
 
 
 Route::post('updateUserProfile','Users\UsersController@updateUserProfile')->name('updateUserProfile');
+Route::get('userChangePassword','Users\UsersController@userChangePassword')->name('userChangePassword');
+Route::post('UsersChangePassword','Users\UsersController@UsersChangePassword')->name('UsersChangePassword');
 });
 /*Users*/
 
 /*Super Admin Router*/
-Route::get('admin','Admin\Admins@index')->name('admin');
-Route::post('admin','Admin\Admins@login')->name('login');
+/*Route::get('admin','Admin\Admins@index')->name('admin');
+Route::post('admin','Admin\Admins@login')->name('login');*/
 
 Route::group(['middleware' => 'App\Http\Middleware\SuperAdmin'], function()
 {
-	Route::get('admndashboard','Admin\Admins@dashboard')->name('admndashboard');
+	Route::get('admndashboard','Admin\Admins@banner')->name('admndashboard');
 	Route::get('banner','Admin\Admins@banner')->name('banner');
 	Route::get('aboutBanner','Admin\Admins@banner')->name('aboutBanner');
 	Route::get('iWantToPlan','Admin\Admins@iWantToPlan')->name('iWantToPlan');
@@ -138,6 +155,8 @@ Route::group(['middleware' => 'App\Http\Middleware\SuperAdmin'], function()
 	Route::post('addtags','Admin\Admins@addtags')->name('addtags');
 	Route::get('adminService','Admin\Admins@adminService')->name('adminService');
 	Route::post('addServicesByadmin','Admin\Admins@addServicesByadmin')->name('addServicesByadmin');
+	Route::post('adminUpdateProfile','Admin\Admins@adminUpdateProfile')->name('adminUpdateProfile');
+	Route::get('adminProfile','Admin\Admins@adminProfile')->name('adminProfile');
 	
 });
 Route::post('adinReg','SuperAdminControler\SuperAdminController@adinReg')->name('adinReg');

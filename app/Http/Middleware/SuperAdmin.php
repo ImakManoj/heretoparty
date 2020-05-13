@@ -24,7 +24,7 @@ class SuperAdmin
         }elseif (Auth::check() && Auth::User()->role == 'Vendor') {
             return redirect('/');
         }else {
-            //return redirect('/');
+            return redirect('/');
         }
 
         return $next($request);

@@ -1,7 +1,7 @@
 @extends('UserDashboard.Userslayouts.apps')
 @section('title','Message')
 @section('content')
-
+ 
 
 
    <div class="dashboard-content-wrap">
@@ -19,170 +19,124 @@
                                  <button type="button" class="search-btn"><i class="fa fa-search" aria-hidden="true"></i></button>
                              </form>      
                          </div>
-                         <ul>
-                             <li>
-                                 <a href="#">
-                                     <figure style="background-image: url('../images/member6.jpg');"></figure>
-                                     <h6>John</h6>
+                          <ul>
+                                @if(!$response->isEmpty())
+                                    @foreach($response as $ft)
+                                       
+                                <li onclick="shiftUsers({{$ft->vid}})">
+                                 <a href="javascript:void(0);">
+                                     <figure style="background-image: url('{{asset($ft->img)}}');"></figure>
+                                     <h6 id="UserNames_{{$ft->vid}}">{{$ft->first_name}} {{$ft->last_name}}</h6>
                                      <span class="notify msg">2</span>
                                     </a>
                                 </li>
-                                <li class="active">
-                                    <a href="#">
-                                        <figure style="background-image: url('../images/member2.jpg');"></figure>
-                                        <h6>Sarah</h6>
-                                        <span class="notify msg">1</span>
-                                    </a>
-                                </li> 
-                                <li>
-                                    <a href="#">
-                                        <figure style="background-image: url('../images/member3.jpg');"></figure>
-                                        <h6>Merry</h6>
-                                        <span class="notify msg">1</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <figure style="background-image: url('../images/member4.jpg');"></figure>
-                                        <h6>Ketty</h6>
-                                        <span class="notify"></span>
-                                    </a>
-                                </li>
-                             <li>
-                                 <a href="#">
-                                     <figure style="background-image: url('../images/member5.jpg');"></figure>
-                                     <h6>Mark</h6>
-                                     <span class="notify"></span>
-                                    </a>
-                                </li>
-                               <li>
-                                   <a href="#">
-                                       <figure style="background-image: url('../images/member3.jpg');"></figure>
-                                       <h6>Merry</h6>
-                                       <span class="notify"></span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <figure style="background-image: url('../images/member4.jpg');"></figure>
-                                        <h6>Ketty</h6>
-                                        <span class="notify"></span>
-                                    </a>
-                                </li>
-                             <li>
-                                 <a href="#">
-                                     <figure style="background-image: url('../images/member5.jpg');"></figure>
-                                     <h6>Mark</h6>
-                                     <span class="notify"></span>
-                                    </a>
-                                </li>
-                               <li>
-                                   <a href="#">
-                                       <figure style="background-image: url('../images/member3.jpg');"></figure>
-                                       <h6>Merry</h6>
-                                       <span class="notify"></span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <figure style="background-image: url('../images/member4.jpg');"></figure>
-                                        <h6>Ketty</h6>
-                                        <span class="notify"></span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <figure style="background-image: url('../images/member5.jpg');"></figure>
-                                        <h6>Mark</h6>
-                                        <span class="notify"></span>
-                                    </a>
-                                </li>
-                                
-                                <li>
-                                    <a href="#">
-                                        <figure style="background-image: url('../images/member3.jpg');"></figure>
-                                        <h6>Merry</h6>
-                                        <span class="notify"></span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <figure style="background-image: url('../images/member4.jpg');"></figure>
-                                        <h6>Ketty</h6>
-                                        <span class="notify"></span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <figure style="background-image: url('../images/member5.jpg');"></figure>
-                                        <h6>Mark</h6>
-                                        <span class="notify"></span>
-                                 </a>
-                             </li>
+                                    @endforeach
+                                @endif
+
                          </ul>
                      </div>
                     
-                    <div class="chat-box-wrap">
+                 <div class="chat-box-wrap">
                         <div class="chat-title-box">
                              <div class="profile-box profile-left">
                                 <figure style="background-image: url('../images/member5.jpg');"></figure>
-                                <h6>Mark</h6>
+                                <h6 id="namedisplay">Mark</h6>
                              </div>
                              <div class="profile-right">
-                                 <a href="#" class="eye-icon"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                 <a href="javascript:void(0);" class="eye-icon"><i class="fa fa-eye" aria-hidden="true"></i></a>
                            </div>
                         </div>
                          <div class="chat-box-sec">
-                             <article class="chat-list">
-                                 <div class="chat-content">
-                                     <figure style="background-image: url('../images/member6.jpg');"></figure>
-                                     <div class="content">
-                                         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-                                     </div>
-                                     <span>Today 09:24 am</span>
-                                 </div>
-                             </article>
-                             <article class="chat-list user-chat">
-                                 <div class="chat-content">
-                                     <figure style="background-image: url('../images/member7.jpg');"></figure>
-                                     <div class="content">
-                                         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean</p>
-                                     </div>
-                                     <span>Today 09:36 am</span>
-                                 </div>
-                             </article>
-                             <article class="chat-list">
-                                 <div class="chat-content">
-                                     <figure style="background-image: url('../images/member6.jpg');"></figure>
-                                     <div class="content">
-                                         <p>Lorem ipsum dolor sit</p>
-                                         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean com</p>
-                                     </div>
-                                     <span>Today 09:54 am</span>
-                                 </div>
-                             </article>
-                             <article class="chat-list user-chat">
-                                 <div class="chat-content">
-                                     <figure style="background-image: url('../images/member7.jpg');"></figure>
-                                     <div class="content">
-                                         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </p>
-                                     </div>
-                                     <span>Today 10:10 am</span>
-                                 </div>
-                             </article>
+                             <div id="Message">Not message found</div>
                          </div>
-     <form>
+                        <form enctype="multipart/form-data" onsubmit="return false">
+                            @csrf
+                            <input type="hidden" name="afterappend" id="afterappend">       
                              <div class="form-group">
-                                 <textarea class="form-control" placeholder="Type your message here"></textarea>
-                                 <a href="#"><i class="fa fa-paperclip" aria-hidden="true"></i></a>
+                                 <textarea class="form-control" name="ClientMessage"  id="ClientMessage" placeholder="Type your message here"></textarea>
+                                 <a href="javascript:void(0);"><i class="fa fa-paperclip" aria-hidden="true"></i></a>
                              </div>
-                             <input type="submit" />
+                             <input type="submit" onclick="SendMessagetoUser()" />
                          </form>
                      </div>
+              
                  </div>
                 </div> 
                 </div>   <!-- dashboard-content-inn  -->
              </div>   
 
+</script>
 
-@section('content')
+<script type="text/javascript">
+    setInterval(function(){ GetMessages(); }, 4000);
+    function shiftUsers(id){
+
+        const parmt={
+            _token:"{{csrf_token()}}",
+            id:id,
+            Greater:'',
+        }
+         $('#afterappend').val('');
+        $('#UserId').val(id);
+        $('#Message').html('');
+         $('#displayFrom').show();
+        
+      }
+     
+</script>
+<input type="hidden" name="UserId" id="UserId" >
+<script type="text/javascript">
+    function SendMessagetoUser(){
+        if($('#ClientMessage').val().trim()==''){
+           return false;
+        }
+        if($('#UserId').val().trim()==''){
+            return false;
+        }
+        let id=$('#UserId').val();
+        const parmt={
+            _token:"{{csrf_token()}}",
+            id:id,
+            Message:$('#ClientMessage').val()
+        }
+        $.post('{{route("SendMessagetoVendors")}}',parmt).then(function(msg){
+            $('#ClientMessage').val('');
+        })
+    }
+
+</script>
+<script type="text/javascript">
+    function GetMessages(){
+        if($('#UserId').val().trim()==''){
+            return false;
+        }
+        var appens='';
+        const parmt={
+            id:$('#UserId').val(),
+            _token:"{{csrf_token()}}",
+            Greater:$('#afterappend').val()
+        }
+        //console.log(parmt);
+        $.post('{{route("getallVendorMessages")}}',parmt).then(function(response){
+
+            var obj=JSON.parse(response);
+           
+            for(var i=0;i<obj.length;i++){
+                 $('#afterappend').val(obj[0].Maxid);
+                if(obj[i].type=='1'){
+                    var images="{{asset('')}}"+obj[i].img;
+                    appens+='<article class="chat-list"><div class="chat-content"><figure style="background-image: url('+images+');"></figure><div class="content"><p>'+obj[i].message+'</p></div><span>'+obj[i].times+'</span></div></article>';
+                }else{
+                    var images="{{asset('')}}"+obj[i].img;
+                    appens +='<article class="chat-list user-chat"><div class="chat-content"><figure style="background-image: url('+images+');"></figure><div class="content"><p>'+obj[i].message+'</p></div><span>'+obj[i].times+'</span></div></article>';
+                }
+            }
+            //console.log(obj[0].Maxid);
+           
+            $('#Message').append(appens);
+
+        })
+
+    }
+</script>
+@endsection

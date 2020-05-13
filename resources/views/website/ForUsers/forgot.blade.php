@@ -11,10 +11,11 @@
 
                 <article class="auth-form-cover">
                     <h2 class="heading">Forgot Password</h2>
-                    <form>
+                    <form action="{{route('forgotPassword')}}" method="post">
+                        @csrf
                         <article class="form-group has-icon">
                             <i class="fa fa-envelope-o"></i>
-                            <input type="email" class="form-control" placeholder="Enter Your Email">
+                            <input type="email" name="forgotEmail" id="forgotEmail" class="form-control" placeholder="Enter Your Email">
                         </article>
                         <article class="text-center">
                             <input type="submit" class="btn btn-default" value="Reset">

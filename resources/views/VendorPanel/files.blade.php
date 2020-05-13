@@ -11,14 +11,17 @@
                             <h3>Files</h3>
                             <span class="btn btn-success sm-btn" onclick="addBoucher()">Add Brochure</span>
                             <div class="search-wrap">
-                            <form>
-                                <input type="text" class="form-control" placeholder="Search" >
-                                 <button class="search-btn" type="button"><i class="fa fa-search"></i></button>
-                            </form>
+                             <form>
+
+                                  <div class="form-group btns_rt">
+
+                                  </div>
+
+                                </form>
                             </div>
                        </div>
                        <div class="table-wrap files-table"> 
-                         <table class="table table-bordered table-striped">
+                         <table class="table table-bordered table-striped" id="example">
                               <thead class="primary-theme"> 
                                   <tr>
                                   <th>Sr. No.</th> 
@@ -155,4 +158,30 @@
       })
     }
   </script>
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript">
+    var table = $('#example').DataTable();
+ 
+        function explode(){
+        $("#example_filter").detach().appendTo('.btns_rt');
+    }
+
+    
+    $(document).ready(function() {
+        setTimeout(explode, 500);
+    table
+        .columns(1)
+        .search( this.value )
+        .draw();
+} );
+
+        $('div.dataTables_filter input').attr('placeholder', 'Search...','class'); 
+        $("#example").wrap("<div class='responsive-table'></div>");
+        $('div.dataTables_filter input').addClass('form-control');
+        
+</script>
   @endsection

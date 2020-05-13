@@ -112,7 +112,8 @@ class UserAuthController extends Controller
           
         } 
         else{ 
-            return response()->json(['error'=>'Unauthorised'], 401); 
+            return redirect()->back();
+            //return response()->json(['error'=>'Unauthorised'], 401); 
         } 
     }
 
