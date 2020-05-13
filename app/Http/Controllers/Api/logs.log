@@ -1,0 +1,9 @@
+Array
+(
+    [customer] => cus_EE1RB3YKwlZexd
+    [type] => charge.succeeded
+    [user_id] => 3
+    [transaction_id] => ch_1Dlw4jDR6Ob0y0sija4xH85l
+    [created_at] => 1545906409
+    [expire_date] => 1970-01-01
+)
